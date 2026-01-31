@@ -1,0 +1,21 @@
+security_deposit:
+  excess_amount:
+    violates: "Deposit capped at 2 months rent (residential)"
+    citation: "Model Tenancy Act §11(2)"
+    explanation: "Landlords cannot demand more than 2 months of rent as a security deposit for residential premises."
+  non_refundable:
+    violates: "Security deposit must be refunded"
+    citation: "Model Tenancy Act §11(2)"
+    explanation: "The security deposit shall be refunded to the tenant on vacating the premises, after deducting any liability."
+
+maintenance:
+  tenant_pays_structural:
+    violates: "Landlord responsible for structural repairs"
+    citation: "Model Tenancy Act §15 (Schedule II)"
+    explanation: "Structural repairs and whitewashing are the landlord's responsibility. Tenants are only responsible for minor repairs."
+
+notice_period:
+  one_sided_notice:
+    violates: "Notice period must be equitable"
+    citation: "Model Tenancy Act §5(3)"
+    explanation: "Termination rules should be consistent with the agreement but cannot override statutory protections."

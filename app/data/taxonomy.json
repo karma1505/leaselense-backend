@@ -1,0 +1,39 @@
+{
+    "security_deposit": {
+        "keywords": [
+            "security deposit",
+            "refundable",
+            "deduction",
+            "interest-free"
+        ],
+        "risk_types": [
+            "excess amount",
+            "non-refundable",
+            "arbitrary deduction"
+        ]
+    },
+    "maintenance": {
+        "keywords": [
+            "maintenance",
+            "repairs",
+            "wear and tear",
+            "structural"
+        ],
+        "risk_types": [
+            "tenant pays structural",
+            "ambiguous responsibility"
+        ]
+    },
+    "notice_period": {
+        "keywords": [
+            "notice",
+            "lock-in",
+            "termination",
+            "early termination"
+        ],
+        "risk_types": [
+            "one-sided notice",
+            "penalty asymmetry"
+        ]
+    }
+}
