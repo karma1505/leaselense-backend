@@ -14,6 +14,10 @@ class RiskAnalysisRequest(BaseModel):
 class LetterRequest(BaseModel):
     risk_details: dict
 
+class TranslateRequest(BaseModel):
+    data: dict
+    target_language: str
+
 @router.post("/upload")
 async def upload_lease(file: UploadFile):
     upload_dir = "uploads"
@@ -170,3 +174,9 @@ async def analyze_main(file: UploadFile):
     risks = llm_service.analyze_batch(full_text, merged_laws)
     
     return {"risks": risks, "text_preview": cleaned_text[:200]}
+
+@router.post("/translate")
+async def translate_data(request: TranslateRequest):
+    print(f"[INFO] Translating content to {request.target_language}")
+    translated_data = llm_service.translate_content(request.data, request.target_language)
+    return translated_data

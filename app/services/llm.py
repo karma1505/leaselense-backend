@@ -78,8 +78,9 @@ class LLMService:
             {
                 "risk_found": true,
                 "risk_type": "Rent Increase",
-                "explanation": "Clause X mentions 10% increase which violates MRCA limit of 4%.",
+                "explanation": "Clause X mentions 10% increase which violates limit of 4%.",
                 "clause_snippet": "Clause 3: ... increase by 10%...",
+                "citation": "MRCA Section 11",
                 "confidence": "High"
             }
           ]
@@ -139,5 +140,34 @@ class LLMService:
             )
         except Exception as e:
             return "Error generating letter."
+
+    def translate_content(self, data: dict, target_language: str) -> dict:
+        system_prompt = f"""You are a legal translator expert in Indian Law.
+        Translate the values in the provided JSON to {target_language}.
+        
+        RULES:
+        1. Keep all JSON keys exactly the same.
+        2. Translate 'explanation', 'risk_type', 'citation'.
+        3. Do NOT translate 'risk_found', 'confidence' (Keep confidence as High/Medium/Low but you can append translation in brackets if needed, e.g. "High (उuch)").
+        4. For 'clause_snippet', keep the original English text but provide a translation in brackets.
+        5. Ensure legal terms are translated accurately for the context (Maharashtra Rent Control, etc).
+        
+        Input JSON:
+        {json.dumps(data)}
+        """
+        
+        try:
+            content = self._call_llm(
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": "Translate the JSON."}
+                ],
+                model=self.writing_model,
+                json_mode=True
+            )
+            return json.loads(content)
+        except Exception as e:
+            print(f"[LLM ERROR] Translation failed: {e}")
+            return data # Fallback to original
 
 llm_service = LLMService()
