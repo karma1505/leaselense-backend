@@ -15,6 +15,7 @@ class RiskAnalysisRequest(BaseModel):
 
 class LetterRequest(BaseModel):
     risks: List[dict] # Changed from risk_details: dict to handle multiple risks
+    format: str = "email" # "email" or "whatsapp"
 
 class TranslateRequest(BaseModel):
     data: dict
@@ -113,8 +114,8 @@ async def analyze_text_debug(request: RiskAnalysisRequest):
 
 @router.post("/generate-letter")
 async def generate_letter(request: LetterRequest):
-    print(f"[INFO] Generating letter for {len(request.risks)} risks...")
-    letter = llm_service.generate_letter(request.risks)
+    print(f"[INFO] Generating letter for {len(request.risks)} risks (Format: {request.format})...")
+    letter = llm_service.generate_letter(request.risks, request.format)
     return {"letter": letter}
 
 @router.post("/analyze")

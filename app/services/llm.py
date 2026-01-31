@@ -119,8 +119,7 @@ class LLMService:
     # Wait, the fallback in endpoints.py (lines 88-115) was REPLACED largely.
     # I should check endpoints.py to be sure I didn't leave calls to analyze_clause.
 
-    def generate_letter(self, risks: list) -> str:
-        system_prompt = "You are a professional legal negotiator. Draft a polite but firm email to a Landlord."
+    def generate_letter(self, risks: list, format_type: str = "email") -> str:
         
         # Prepare a summary of risks
         risk_summary = ""
@@ -132,17 +131,33 @@ class LLMService:
                - Legal Reference: {risk.get('citation')}
             """
 
-        user_message = f"""
-        I have analyzed a residential lease agreement and found the following issues that need to be addressed:
-        
-        {risk_summary}
-        
-        Draft a single, consolidated negotiation email to the Landlord proposing corrections for these points.
-        - Group related issues if possible.
-        - Cite the specific laws (MRCA/TPA) mentioned.
-        - Be polite, constructive, but firm on legal rights.
-        - Keep the tone professional (not aggressive).
-        """
+        if format_type.lower() == "whatsapp":
+            system_prompt = "You are a helpful assistant drafting a short WhatsApp message."
+            user_message = f"""
+            I found these issues in a lease agreement:
+            {risk_summary}
+
+            Draft a short, informal, but clear WhatsApp message to the Landlord/broker.
+            - Use bullet points.
+            - Keep it brief (under 150 words).
+            - Mention identifying the issues and wanting to discuss fixes.
+            - Tone: Friendly but direct. "Hi [Name], reviewed the lease..."
+            - **IMPORTANT**: Use single asterisks (*) for bold text (e.g., *Issue*), NOT double asterisks (**). WhatsApp uses single asterisks for bold.
+            """
+        else:
+            # Default Email Format
+            system_prompt = "You are a professional legal negotiator. Draft a polite but firm email to a Landlord."
+            user_message = f"""
+            I have analyzed a residential lease agreement and found the following issues that need to be addressed:
+            
+            {risk_summary}
+            
+            Draft a single, consolidated negotiation email to the Landlord proposing corrections for these points.
+            - Group related issues if possible.
+            - Cite the specific laws (MRCA/TPA) mentioned.
+            - Be polite, constructive, but firm on legal rights.
+            - Keep the tone professional (not aggressive).
+            """
         
         try:
             return self._call_llm(
