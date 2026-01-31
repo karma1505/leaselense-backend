@@ -23,6 +23,16 @@ class LLMService:
         Legal Context: "{law_context}"
 
         Task: Determine if there is a risk or violation.
+        
+        ### IGNORE STANDARD PRACTICES
+        You are analyzing a residential lease in India (Maharashtra). Do NOT flag the following standard market practices as risks:
+        1. "Interest-Free Security Deposit": This is standard practice in India. Do not flag it as a financial loss.
+        2. "Licensor pays Municipal Taxes/Maintenance": This is the legal duty of the landlord. It is a PROTECTION for the tenant, not a risk. Do not flag it.
+        3. "11-Month Term": This is standard for Leave and License agreements.
+        4. "Deduction for Arrears/Damages": It is standard to deduct unpaid bills from the deposit.
+
+        ONLY flag clauses that violate the 'Maharashtra Rent Control Act' or create unfair/unreasonable liabilities for the Tenant (e.g., huge penalties, eviction without notice, invasion of privacy).
+
         Return ONLY valid JSON with this structure:
         {{
             "risk_found": boolean,
