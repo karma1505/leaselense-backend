@@ -68,37 +68,30 @@ async def extract_text(filename: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to extract text: {str(e)}")
 
-@router.post("/analyze")
-async def analyze_risk(request: RiskAnalysisRequest):
+@router.post("/analyze-text")
+async def analyze_text_debug(request: RiskAnalysisRequest):
+    """
+    DEBUG ENDPOINT: Analyzes raw text directly. 
+    Used by internal verification scripts (verify_lease_*.py).
+    """
     print(f"[INFO] Analyzing lease text (length: {len(request.clause_text)})...")
     
     # 1. Split text into chunks (paragraphs)
-    # Simple splitting by double newline
     paragraphs = [p.strip() for p in request.clause_text.split('\n\n') if len(p.strip()) > 50]
-    
-    # 2. Filter for relevant clauses (Security Deposit, Termination, Maintenance, etc.)
-    idx_to_analyze = []
     keywords = ["deposit", "security", "refund", "termination", "notice", "repair", "maintenance", "increase", "rent", "evic", "utilit", "electricity", "water", "registrat", "lock-in", "penal", "damages", "enter", "entry", "possession"]
     
+    idx_to_analyze = []
     for i, p in enumerate(paragraphs):
         if any(k in p.lower() for k in keywords):
             idx_to_analyze.append(i)
             
-    # Limit to specific relevant chunks to save time/quota, or analyze all relevant ones?
-    # Let's take up to 20 relevant chunks (covering most standard leases)
     target_indices = idx_to_analyze[:20]
-    
-    # --- OPTIMIZATION: BATCH PROCESSING ---
-    # Instead of calling LLM for each chunk (burning quota), we will:
-    # 1. Gather RAG context for all chunks (Free).
-    # 2. Send ONE prompt with all clauses and merged context.
     
     combined_clauses = []
     combined_laws = set()
     
     for i in target_indices:
         clause = paragraphs[i]
-        # RAG Search (Local & Free)
         relevant_laws_result = vector_store.query_similar(clause, n_results=2)
         combined_clauses.append(f"Clause {i+1}: {clause}")
         if relevant_laws_result and relevant_laws_result['documents']:
@@ -108,21 +101,11 @@ async def analyze_risk(request: RiskAnalysisRequest):
     if not combined_clauses:
         return {"risks": [], "message": "No relevant lease clauses found to analyze."}
         
-    # Prepare Single Request
     full_lease_text = "\n\n".join(combined_clauses)
     merged_law_context = "\n\n".join(list(combined_laws))
     
     print(f"[INFO] Sending BATCH analysis (1 request) for {len(combined_clauses)} clauses...")
-    
-    # Call LLM Once
-    # We need to update llm.analyze_clause or create a new method analyze_full_lease
-    # For now, let's reuse analyze_clause but expect a list of risks in the explanation?
-    # Actually, analyze_clause returns a single dict {risk_found, risk_type...}.
-    # We should update LLM prompt to return a LIST of risks.
-    
     analysis = llm_service.analyze_batch(full_lease_text, merged_law_context)
-    
-    # Analysis is now a list of risks
     return {"risks": analysis}
 
 @router.post("/generate-letter")
@@ -130,3 +113,60 @@ async def generate_letter(request: LetterRequest):
     print("[INFO] Generating letter...")
     letter = llm_service.generate_letter(request.risk_details)
     return {"letter": letter}
+
+@router.post("/analyze")
+async def analyze_main(file: UploadFile):
+    """
+    MAIN PRODUCTION ENDPOINT: Upload PDF -> Extract -> Analyze.
+    """
+    print(f"[INFO] Processing uploaded file: {file.filename}")
+    
+    # 1. Save
+    upload_dir = "uploads"
+    os.makedirs(upload_dir, exist_ok=True)
+    file_path = f"{upload_dir}/{file.filename}"
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    # 2. Extract (Docling)
+    try:
+        converter = DocumentConverter()
+        result = converter.convert(file_path)
+        extracted_text = result.document.export_to_markdown()
+        cleaned_text = clean_text(extracted_text)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Docling Extraction Failed: {e}")
+        
+    # 3. Analyze logic (Reused)
+    print(f"[INFO] Analyzable Text Length: {len(cleaned_text)}")
+    
+    paragraphs = [p.strip() for p in cleaned_text.split('\n\n') if len(p.strip()) > 50]
+    keywords = ["deposit", "security", "refund", "termination", "notice", "repair", "maintenance", "increase", "rent", "evic", "utilit", "electricity", "water", "registrat", "lock-in", "penal", "damages", "enter", "entry", "possession", "receipt", "commercial", "manufacturing"]
+    
+    idx_to_analyze = []
+    for i, p in enumerate(paragraphs):
+        if any(k in p.lower() for k in keywords):
+            idx_to_analyze.append(i)
+            
+    target_indices = idx_to_analyze[:20]
+    
+    combined_clauses = []
+    combined_laws = set()
+    
+    for i in target_indices:
+        clause = paragraphs[i]
+        relevant_laws_result = vector_store.query_similar(clause, n_results=2)
+        combined_clauses.append(f"Clause {i+1}: {clause}")
+        if relevant_laws_result and relevant_laws_result['documents']:
+             for doc in relevant_laws_result['documents'][0]:
+                 combined_laws.add(doc)
+    
+    if not combined_clauses:
+        return {"risks": [], "message": "No relevant clauses found."}
+
+    full_text = "\n\n".join(combined_clauses)
+    merged_laws = "\n\n".join(list(combined_laws))
+    
+    risks = llm_service.analyze_batch(full_text, merged_laws)
+    
+    return {"risks": risks, "text_preview": cleaned_text[:200]}
