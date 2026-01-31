@@ -26,4 +26,4 @@ coverage.xml
 
 # LeaseLense Specific
 uploads/
-chroma_db/
+# chroma_db/
