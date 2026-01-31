@@ -16,7 +16,7 @@ class LLMService:
 
     def analyze_clause(self, clause_text: str, law_context: str) -> dict:
         prompt = f"""
-        You are an expert legal AI. Analyze the following lease clause against the provided legal context (Model Tenancy Act).
+        You are an expert legal AI helper for LeaseLense. Analyze the following lease clause against the provided legal context (Laws like MRCA 1999, Registration Act 1908, TPA 1882).
 
         Clause: "{clause_text}"
 
