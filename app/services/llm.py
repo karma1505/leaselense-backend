@@ -119,15 +119,29 @@ class LLMService:
     # Wait, the fallback in endpoints.py (lines 88-115) was REPLACED largely.
     # I should check endpoints.py to be sure I didn't leave calls to analyze_clause.
 
-    def generate_letter(self, risk_details: dict) -> str:
-        system_prompt = "You are a professional legal negotiator. Draft a polite but firm email."
-        user_message = f"""
-        Proprietor/Landlord has a lease with this risk:
-        {json.dumps(risk_details, indent=2)}
+    def generate_letter(self, risks: list) -> str:
+        system_prompt = "You are a professional legal negotiator. Draft a polite but firm email to a Landlord."
         
-        Draft a negotiation email to the Landlord proposing a correction.
-        Cite the law if mentioned in the risk.
-        Keep it constructive.
+        # Prepare a summary of risks
+        risk_summary = ""
+        for i, risk in enumerate(risks, 1):
+            risk_summary += f"""
+            {i}. Issue: {risk.get('risk_type')}
+               - Clause: "{risk.get('clause_snippet', '')[:100]}..."
+               - Violation: {risk.get('explanation')}
+               - Legal Reference: {risk.get('citation')}
+            """
+
+        user_message = f"""
+        I have analyzed a residential lease agreement and found the following issues that need to be addressed:
+        
+        {risk_summary}
+        
+        Draft a single, consolidated negotiation email to the Landlord proposing corrections for these points.
+        - Group related issues if possible.
+        - Cite the specific laws (MRCA/TPA) mentioned.
+        - Be polite, constructive, but firm on legal rights.
+        - Keep the tone professional (not aggressive).
         """
         
         try:

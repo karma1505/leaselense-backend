@@ -5,6 +5,8 @@ from app.services.llm import llm_service
 import shutil
 import os
 from typing import List
+from docling.document_converter import DocumentConverter
+import re
 
 router = APIRouter()
 
@@ -12,7 +14,7 @@ class RiskAnalysisRequest(BaseModel):
     clause_text: str
 
 class LetterRequest(BaseModel):
-    risk_details: dict
+    risks: List[dict] # Changed from risk_details: dict to handle multiple risks
 
 class TranslateRequest(BaseModel):
     data: dict
@@ -29,9 +31,6 @@ async def upload_lease(file: UploadFile):
     print(f"[SUCCESS] File saved to: {file_path}")
         
     return {"filename": file.filename, "status": "uploaded"}
-
-from docling.document_converter import DocumentConverter
-import re
 
 def clean_text(text: str) -> str:
     # 1. Remove long underscores (form lines)
@@ -114,8 +113,8 @@ async def analyze_text_debug(request: RiskAnalysisRequest):
 
 @router.post("/generate-letter")
 async def generate_letter(request: LetterRequest):
-    print("[INFO] Generating letter...")
-    letter = llm_service.generate_letter(request.risk_details)
+    print(f"[INFO] Generating letter for {len(request.risks)} risks...")
+    letter = llm_service.generate_letter(request.risks)
     return {"letter": letter}
 
 @router.post("/analyze")
