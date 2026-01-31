@@ -1,0 +1,80 @@
+{
+    "metadata": {
+        "act_name": "Maharashtra Rent Control Act, 1999",
+        "act_number": "Mah. Act No. XVIII of 2000",
+        "source_url": "https://www.indiacode.nic.in/bitstream/123456789/15817/3/eng_maharashtra_rent_control_ac.pdf",
+        "purpose": "Source of truth for LeaseLense project to verify lease agreements."
+    },
+    "sections": [
+        {
+            "section_number": "55",
+            "title": "Tenancy agreement to be compulsorily registered",
+            "category": "Registration",
+            "relevance": "Verifying if the lease mandates registration as required by law.",
+            "content": "(1) Notwithstanding anything contained in this Act or any other law for the time being in force, any agreement for leave and licence or letting of any premises, entered into between the landlord and the tenant or the licensee, as the case may be, after the commencement of this Act, shall be in writing and shall be registered under the Registration Act, 1908 (XVI of 1908).\n\n(2) The responsibility of getting such agreement registered shall be on the landlord and in the absence of the written registered agreement, the contention of the tenant about the terms and conditions, subject to which a premises have been given to him by the landlord on leave and licence or have been let to him, shall prevail, unless proved otherwise.\n\n(3) Any landlord who contravenes the provisions of this section shall, on conviction, be punished with imprisonment which may extend to three months or with fine not exceeding rupees five thousand or with both."
+        },
+        {
+            "section_number": "10",
+            "title": "Rent in excess of standard rent illegal",
+            "category": "Rent & Standard Rent",
+            "relevance": "Analyzing rent escalation clauses and ensuring rent caps are legal.",
+            "content": "(1) Save as otherwise provided in section 6, it shall not be lawful to claim or receive on account of rent, for any premises any increases above the standard rent and the permitted increases, unless the landlord was, before the coming into operation of this Act, entitled to recover such increase by virtue of, or under, the provisions of any of the repealed Acts or is entitled to recover such increase under the provisions of this Act.\n\n(2) Any contravention of provisions of sub-section (1) shall be an offence punishable, on conviction, with imprisonment not exceeding three months or fine not exceeding rupees five thousand or with both."
+        },
+        {
+            "section_number": "11",
+            "title": "Increase in rent annually and on account of improvement, etc.",
+            "category": "Rent & Standard Rent",
+            "relevance": "Analyzing rent escalation clauses.",
+            "content": "(1) After the commencement of this Act a landlord shall be entitled to make an increase of 4 per cent. per annum in the rent of the premises let for any of the purpose referred to in sub-section (1) of section 2.\n\nExplanation.—For the purposes of this sub-section, the period of one year on completion of which rent shall be so increased shall be computed from the date of commencement of this Act."
+        },
+        {
+            "section_number": "12",
+            "title": "Increase in rent on account of payment of rates, etc.",
+            "category": "Rent & Standard Rent",
+            "relevance": "Analyzing pass-through costs (taxes/cess).",
+            "content": "(1) Where a landlord is required to pay to Government or to any local authority or statutory authority in respect of any premises any fresh rate, cess, charges, tax, land assessment, ground rent of land or any other levy on lands and buildings, he shall, notwithstanding anything contained in any other provisions of this Act but save as otherwise expressly provided in any other law for the time being in force, be entitled to make an increase in the rent of such premises: Provided that, the increase in rent shall not exceed the amount of any such rate cess, charges, tax, land assessment, ground rent of land or any other levy on lands and buildings, as the case may be."
+        },
+        {
+            "section_number": "14",
+            "title": "Landlords' duty to keep premises in good repair",
+            "category": "Maintenance & Repairs",
+            "relevance": "Checking repair clauses in the lease against statutory obligations.",
+            "content": "(1) Notwithstanding anything contained in any law for the time being in force and in the absence of an agreement to the contrary by the tenant, every landlord shall be bound to keep the premises in good and tenantable repair.\n\n(2) If the landlord neglects to make any repairs, which he is bound to make under sub-section (1), within a reasonable time after a notice of fifteen days is served upon him by post or in any other manner by a tenant or jointly by tenants interested in such repairs, such tenant or tenants may themselves make the same and deduct the expenses of such repairs from the rent or otherwise recover them from the landlord. Provided that, where the repairs are jointly made by the tenants, the amount to be deducted or recovered with interest by each tenant shall bear the same proportion as the rent payable by him in respect of his premises bears to the total amount of the expenses incurred for such repairs together with simple interest at fifteen per cent. per annum on such amount: Provided further that, the amount to be deducted or recoverable in any year shall not exceed one-fourth of the rent payable by the tenant of that year."
+        },
+        {
+            "section_number": "24",
+            "title": "Landlord entitled to recover possession of premises given on licence on expiry",
+            "category": "Leave and License",
+            "relevance": "Crucial for Leave and License agreements (expiry and damages).",
+            "content": "(1) Notwithstanding anything contained in this Act, a licensee, in possession or occupation of premises given to him on license for residence shall deliver possession of such premises to the landlord on expiry of the period of licence; and on the failure of the licensee to so deliver the possession of the licensed premises, a landlord shall be entitled to recover possession of such premises from a licensee, on the expiry of the period of licence, by making an application to the Competent Authority.\n\n(2) Any licensee who does not deliver possession of the premises to the landlord on expiry of the period of licence and continues to be in possession of the licensed premises till he is dispossessed by the Competent Authority shall be liable to pay damages at double the rate of the licence fee or charge of the premises fixed under the agreement of licence.\n\nExplanation.—For the purposes of this section,— (b) an agreement of licence in writing shall be conclusive evidence of the fact stated therein."
+        },
+        {
+            "section_number": "16",
+            "title": "When landlord may recover possession",
+            "category": "Eviction",
+            "relevance": "Verifying termination and eviction clauses.",
+            "content": "(1) Notwithstanding anything contained in this Act but subject to the provisions of section 25, a landlord shall be entitled to recover possession of any premises if the court is satisfied—\n\n(a) that the tenant has committed any act contrary to the provisions of clause (o) of section 108 of the Transfer of Property Act, 1882; [...]\n\n(b) that the tenant has, without the landlord's consent given in writing, erected on the premises any permanent structure; [...]\n\n(c) that the tenant, his agent, servant, persons inducted by tenant or claiming under the tenant or, any person residing with the tenant has been guilty of conduct which is a nuisance or annoyance to the adjoining or neighbouring occupier, or has been convicted of using the premises or allowing the premises to be used for immoral or illegal purposes [...]\n\n(g) that the premises are reasonably and bona fide required by the landlord for occupation by himself or by any person for whose benefit the premises are held [...]\n\n(n) that the premises have not been used, without reasonable cause for the purpose for which they were let for for a continuous period of six months immediately preceding the date of the suit."
+        },
+        {
+            "section_number": "29",
+            "title": "Landlord not to cut-off or withhold essential supply or service",
+            "category": "Prohibitions",
+            "relevance": "Verifying rights to utilities and essential services.",
+            "content": "(1) No landlord either himself or through any person acting or purporting to act on his behalf shall without just and sufficient cause cut-off or withhold any essential supply or service enjoyed by the tenant in respect of the premises let to him.\n\n(4) [...] If the court finds the complaint to be correct, it shall make an order directing the landlord to restore such essential supply or service forthwith."
+        },
+        {
+            "section_number": "30",
+            "title": "Conversion of residential into commercial premises prohibited",
+            "category": "Prohibitions",
+            "relevance": "Verifying usage restrictions.",
+            "content": "(1) A landlord shall not use or permit to be used for a commercial purpose any premises which, on the date of the commencement of this Act, were used for a residential purpose.\n\n(2) Any landlord who contravenes the provisions of sub-section (1) shall, on conviction, be punishable with imprisonment for a term which may extend to six months or with fine which may extend to ten thousand rupees or with both."
+        },
+        {
+            "section_number": "31",
+            "title": "Giving receipt for any amount received compulsory",
+            "category": "Receipts",
+            "relevance": "Verifying clauses regarding payment proof.",
+            "content": "(1) Every landlord shall give a written receipt for any amount at the time when such amount is received by him in respect of any premises in such form and in such manner as may be prescribed.\n\n(2) Every landlord shall, without charging any consideration, issue the rent receipt in respect of the premises let out to the deceased tenant in the name of the family member referred to in sub-clause (d) of clause (15) of section 7."
+        }
+    ]
+}

@@ -7,4 +7,5 @@ python-multipart
 python-dotenv
 tiktoken
 docling
+httpx
 google-generativeai

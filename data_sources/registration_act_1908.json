@@ -1,0 +1,52 @@
+{
+    "metadata": {
+        "act_name": "The Registration Act, 1908",
+        "act_number": "Act No. 16 of 1908",
+        "source_url": "https://www.indiacode.nic.in/bitstream/123456789/15937/1/the_registration_act%2C1908.pdf",
+        "purpose": "Source of truth for LeaseLense project to verify lease registration requirements and validity."
+    },
+    "sections": [
+        {
+            "section_number": "17(1)(d)",
+            "title": "Documents of which registration is compulsory",
+            "category": "Compulsory Registration",
+            "relevance": "Defines the specific criteria for leases that MUST be registered to be valid.",
+            "content": "The following documents shall be registered... (d) leases of immovable property from year to year, or for any term exceeding one year, or reserving a yearly rent;"
+        },
+        {
+            "section_number": "18(c)",
+            "title": "Documents of which registration is optional",
+            "category": "Optional Registration",
+            "relevance": "Identifies leases that do not require mandatory registration (typically short-term).",
+            "content": "Any of the following documents may be registered under this Act, namely:— ... (c) leases of immovable property for any term not exceeding one year, and leases exempted under section 17;"
+        },
+        {
+            "section_number": "23",
+            "title": "Time for presenting documents",
+            "category": "Deadlines",
+            "relevance": "Sets the strict timeline for registering the lease after signing.",
+            "content": "Subject to the provisions contained in sections 24, 25 and 26, no document other than a will shall be accepted for registration unless presented for that purpose to the proper officer within four months from the date of its execution: Provided that a copy a of a decree or order may be presented within four months from the day on which the decree or order was made, or, where it is appealable, within four months from the day on which it becomes final."
+        },
+        {
+            "section_number": "25",
+            "title": "Provision where delay in presentation is unavoidable",
+            "category": "Deadlines",
+            "relevance": "Explains the penalty (fine) if the 4-month deadline is missed due to urgent necessity.",
+            "content": "(1) If, owing to urgent necessity or unavoidable accident, any document executed, or copy of a decree or order made, in India is not presented for registration till after the expiration of the time hereinbefore prescribed in that behalf, the Registrar, in cases where the delay in presentation does not exceed four months, may direct that, on payment of a fine not exceeding ten times the amount of the proper registration-fee, such document shall be accepted for registration."
+        },
+        {
+            "section_number": "28",
+            "title": "Place for registering documents relating to land",
+            "category": "Jurisdiction",
+            "relevance": "Determines which specific government office has jurisdiction over the lease.",
+            "content": "Save as in this Part otherwise provided, every document mentioned in section 17, sub-section (1), clauses (a), (b), (c), (d) and (e), section 17, sub-section (2), insofar as such document affects immovable property, and section 18, clauses (a), (b) (c) and (cc), shall be presented for registration in the office of a Sub-Registrar within whose sub-district the whole or some portion of the property to which such document relates is situate."
+        },
+        {
+            "section_number": "49",
+            "title": "Effect of non-registration of documents required to be registered",
+            "category": "Validity & Evidence",
+            "relevance": "The critical consequence clause: an unregistered lease (that should have been registered) is worthless as evidence in court.",
+            "content": "No document required by section 17 or by any provision of the Transfer of Property Act, 1882 (4 of 1882), to be registered shall— (a) affect any immovable property comprised therein, or (b) confer any power to adopt, or (c) be received as evidence of any transaction affecting such property or conferring such power, unless it has been registered."
+        }
+    ]
+}

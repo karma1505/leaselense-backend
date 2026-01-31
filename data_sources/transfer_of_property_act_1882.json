@@ -1,0 +1,60 @@
+{
+    "metadata": {
+        "act_name": "The Transfer of Property Act, 1882",
+        "act_number": "Act No. 4 of 1882",
+        "source_url": "https://www.indiacode.nic.in/bitstream/123456789/2338/1/A1882-04.pdf",
+        "chapter": "V (Of Leases of Immoveable Property)",
+        "purpose": "Source of truth for LeaseLense project to verify fundamental lease rights, liabilities, and termination clauses."
+    },
+    "sections": [
+        {
+            "section_number": "105",
+            "title": "Lease defined",
+            "category": "Definitions",
+            "relevance": "Defines the core legal concepts of Lessor, Lessee, Premium, and Rent.",
+            "content": "A lease of immoveable property is a transfer of a right to enjoy such property, made for a certain time, express or implied, or in perpetuity, in consideration of a price paid or promised, or of money, a share of crops, service or any other thing of value, to be rendered periodically or on specified occasions to the transferor by the transferee, who accepts the transfer on such terms.\n\nLessor, lessee, premium and rent defined.—The transferor is called the lessor, the transferee is called the lessee, the price is called the premium, and the money, share, service or other thing to be so rendered is called the rent."
+        },
+        {
+            "section_number": "106",
+            "title": "Duration of certain leases in absence of written contract or local usage",
+            "category": "Duration & Termination",
+            "relevance": "Establishes default notice periods (15 days for residential, 6 months for agricultural/manufacturing) if the lease is silent.",
+            "content": "(1) In the absence of a contract or local law or usage to the contrary, a lease of immovable property for agricultural or manufacturing purposes shall be deemed to be a lease from year to year, terminable, on the part of either lessor or lessee, by six months' notice; and a lease of immovable property for any other purpose shall be deemed to be a lease from month to month, terminable, on the part of either lessor or lessee, by fifteen days' notice."
+        },
+        {
+            "section_number": "107",
+            "title": "Leases how made",
+            "category": "Registration",
+            "relevance": "Mandates registration for leases exceeding one year, critical for checking validity.",
+            "content": "A lease of immoveable property from year to year, or for any term exceeding one year, or reserving a yearly rent, can be made only by a registered instrument. All other leases of immoveable property may be made either by a registered instrument or by oral agreement accompanied by delivery of possession."
+        },
+        {
+            "section_number": "108",
+            "title": "Rights and liabilities of lessor and lessee",
+            "category": "Rights & Liabilities",
+            "relevance": "The most critical section. It lists the default duties (maintenance, disclosure, peaceful possession) that apply if the lease doesn't explicitly state otherwise.",
+            "content": "(A) Rights and liabilities of the lessor:\n(a) The lessor is bound to disclose to the lessee any material defect in the property...\n(b) The lessor is bound on the lessee's request to put him in possession of the property.\n(c) The lessor shall be deemed to contract with the lessee that... he may hold the property during the time limited by the lease without interruption.\n\n(B) Rights and Liabilities of the Lessee:\n(f) If the lessor neglects to make... any repairs which he is bound to make... the lessee may make the same himself, and deduct the expense... from the rent.\n(j) The lessee may transfer absolutely or by way of mortgage or sub-lease the whole or any part of his interest in the property.\n(m) The lessee is bound to keep, and on the termination of the lease to restore, the property in as good condition as it was in at the time when he was put in possession, subject only to the changes caused by reasonable wear and tear...\n(p) He must not, without the lessor's consent, erect on the property any permanent structure."
+        },
+        {
+            "section_number": "111",
+            "title": "Determination of lease",
+            "category": "Termination",
+            "relevance": "Lists the specific legal grounds on which a lease ends (efflux of time, forfeiture, surrender).",
+            "content": "A lease of immoveable property determines—\n(a) by efflux of the time limited thereby;\n(e) by express surrender;\n(f) by implied surrender;\n(g) by forfeiture; that is to say, (1) in case the lessee breaks an express condition which provides that, on breach thereof, the lessor may re-enter...; or (2) in case the lessee renounces his character as such by setting up a title in a third person...;\n(h) on the expiration of a notice to determine the lease, or to quit... duly given by one party to the other."
+        },
+        {
+            "section_number": "114",
+            "title": "Relief against forfeiture for non-payment of rent",
+            "category": "Tenant Protection",
+            "relevance": "Protects tenants from eviction due to unpaid rent if they pay the arrears with interest at the court hearing.",
+            "content": "Where a lease of immoveable property has determined by forfeiture for non-payment of rent, and the lessor sues to eject the lessee, if, at the hearing of the suit, the lessee pays or tenders to the lessor the rent in arrear, together with interest thereon and his full costs of the suit... the Court may, in lieu of making a decree for ejectment, pass an order relieving the lessee against the forfeiture."
+        },
+        {
+            "section_number": "116",
+            "title": "Effect of holding over",
+            "category": "Post-Lease Status",
+            "relevance": "Explains the legal status of a tenant who stays after the lease expires (renewal from month-to-month if rent is accepted).",
+            "content": "If a lessee or under-lessee of property remains in possession thereof after the determination of the lease granted to the lessee, and the lessor or his legal representative accepts rent from the lessee or under-lessee, or otherwise assents to his continuing in possession, the lease is, in the absence of an agreement to the contrary, renewed from year to year, or from month to month, according to the purpose for which the property is leased."
+        }
+    ]
+}
