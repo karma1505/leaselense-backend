@@ -9,4 +9,5 @@ tiktoken
 docling
 httpx
 sentence-transformers
+openai
 google-generativeai

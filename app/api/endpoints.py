@@ -78,40 +78,52 @@ async def analyze_risk(request: RiskAnalysisRequest):
     
     # 2. Filter for relevant clauses (Security Deposit, Termination, Maintenance, etc.)
     idx_to_analyze = []
-    keywords = ["deposit", "security", "refund", "termination", "notice", "repair", "maintenance", "increase", "rent"]
+    keywords = ["deposit", "security", "refund", "termination", "notice", "repair", "maintenance", "increase", "rent", "evic", "utilit", "electricity", "water", "registrat", "lock-in", "penal", "damages", "enter", "entry", "possession"]
     
     for i, p in enumerate(paragraphs):
         if any(k in p.lower() for k in keywords):
             idx_to_analyze.append(i)
             
     # Limit to specific relevant chunks to save time/quota, or analyze all relevant ones?
-    # Let's take up to 6 relevant chunks
-    target_indices = idx_to_analyze[:6]
+    # Let's take up to 20 relevant chunks (covering most standard leases)
+    target_indices = idx_to_analyze[:20]
     
-    results = []
+    # --- OPTIMIZATION: BATCH PROCESSING ---
+    # Instead of calling LLM for each chunk (burning quota), we will:
+    # 1. Gather RAG context for all chunks (Free).
+    # 2. Send ONE prompt with all clauses and merged context.
+    
+    combined_clauses = []
+    combined_laws = set()
     
     for i in target_indices:
         clause = paragraphs[i]
-        print(f"[INFO] Analyzing chunk: {clause[:30]}...")
-        
-        # RAG
-        relevant_laws = vector_store.query_similar(clause)
-        law_context = " ".join([doc for doc in relevant_laws['documents'][0]]) if relevant_laws['documents'] else "No specific law found."
-        
-        # LLM
-        analysis = llm_service.analyze_clause(clause, law_context)
-        
-        if analysis.get("risk_found"):
-            # Add clause snippet to the result for context
-            analysis["clause_snippet"] = clause
-            results.append(analysis)
+        # RAG Search (Local & Free)
+        relevant_laws_result = vector_store.query_similar(clause, n_results=2)
+        combined_clauses.append(f"Clause {i+1}: {clause}")
+        if relevant_laws_result and relevant_laws_result['documents']:
+            for doc in relevant_laws_result['documents'][0]:
+                combined_laws.add(doc)
             
-    # If no risks found but we analyzed stuff, maybe return a "Clean" status? 
-    # Or if we found nothing relevant to analyze?
-    if not results and not target_indices:
+    if not combined_clauses:
         return {"risks": [], "message": "No relevant lease clauses found to analyze."}
         
-    return {"risks": results}
+    # Prepare Single Request
+    full_lease_text = "\n\n".join(combined_clauses)
+    merged_law_context = "\n\n".join(list(combined_laws))
+    
+    print(f"[INFO] Sending BATCH analysis (1 request) for {len(combined_clauses)} clauses...")
+    
+    # Call LLM Once
+    # We need to update llm.analyze_clause or create a new method analyze_full_lease
+    # For now, let's reuse analyze_clause but expect a list of risks in the explanation?
+    # Actually, analyze_clause returns a single dict {risk_found, risk_type...}.
+    # We should update LLM prompt to return a LIST of risks.
+    
+    analysis = llm_service.analyze_batch(full_lease_text, merged_law_context)
+    
+    # Analysis is now a list of risks
+    return {"risks": analysis}
 
 @router.post("/generate-letter")
 async def generate_letter(request: LetterRequest):
