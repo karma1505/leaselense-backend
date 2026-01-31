@@ -11,7 +11,7 @@ from app.core.config import settings
 DATA_SOURCES_DIR = Path("data_sources")
 COLLECTION_NAME = "legal_knowledge"
 BATCH_SIZE = 5
-DELAY_SECONDS = 4  # Respect Gemini Free Tier limits
+DELAY_SECONDS = 20  # Respect Gemini Free Tier limits (drastic increase to handle 429)
 
 # Files to ingest in order
 TARGET_FILES = [
@@ -31,13 +31,11 @@ def reset_collection(client, collection_name):
     except Exception:
         print(f"[INFO] Collection did not exist, creating new.")
     
-    # Embedding Function
-    if not settings.GEMINI_API_KEY:
-        print(f"[ERROR] ❌ GEMINI_API_KEY not found in environment.")
-        sys.exit(1)
-        
-    ef = embedding_functions.GoogleGenerativeAiEmbeddingFunction(
-        api_key=settings.GEMINI_API_KEY
+    # Embedding Function (Local)
+    # Using 'all-MiniLM-L6-v2' which is lightweight and fast.
+    print(f"[INFO] 🧠 Loading local embedding model (sentence-transformers)...")
+    ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+        model_name="all-MiniLM-L6-v2"
     )
     
     return client.create_collection(name=collection_name, embedding_function=ef)

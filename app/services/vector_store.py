@@ -12,13 +12,13 @@ class VectorStoreService:
         self.client = chromadb.PersistentClient(path=str(settings.CHROMA_DB_DIR))
         
         # Ensure we use the same embedding function as the seeder
-        gemini_ef = embedding_functions.GoogleGenerativeAiEmbeddingFunction(
-            api_key=settings.GEMINI_API_KEY
+        local_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+            model_name="all-MiniLM-L6-v2"
         )
         
         self.collection = self.client.get_or_create_collection(
             name="legal_knowledge",
-            embedding_function=gemini_ef
+            embedding_function=local_ef
         )
 
     def add_law_chunks(self, chunks: list[dict]):
