@@ -49,18 +49,27 @@ class LLMService:
         pass 
 
     def analyze_batch(self, full_lease_text: str, law_context: str) -> list:
-        system_prompt = """You are an expert impartial Legal Auditor AI.
-        Your task is to validate Residential Lease Clauses strictly against the provided "Legal Context".
-
-        Step 1: Read the "Legal Context" (Laws/Acts provided below).
-        Step 2: Read the "Lease Clauses".
-        Step 3: Identify any clause that **contradicts, violates, or is inconsistent** with the Legal Context.
+        system_prompt = """You are an expert Indian Legal Aid AI.
+        Your task is to analyze Residential Lease Clauses against the provided Legal Context (Maharashtra Rent Control Act / Transfer of Property Act).
         
-        ### Rules
-        - If the Legal Context says "Rent increase limit is 4%", and the lease says "10%", flag it.
-        - If the Legal Context says "Registration is mandatory", and lease says "No registration", flag it.
-        - If the Legal Context is silent on an issue (e.g., standard 11-month term), do NOT flag it as a risk.
-        - **Silent Killers:** Pay special attention to procedural requirements in the context (Registration, Receipts, Permitted Uses).
+        ### IGNORE STANDARD PRACTICES (Green Flags)
+        Do NOT flag:
+        1. Interest-Free Security Deposit.
+        2. Licensor paying Taxes.
+        3. 11-Month Term.
+        4. Deduction for Arrears/Damages.
+        5. Double Rent for overstaying (Mesne Profits).
+
+        ### FLAG THESE RISKS (Red Flags)
+        1. Rent Increase > 4% (MRCA Sec 11).
+        2. Entry without notice (TPA Sec 108).
+        3. Forced Eviction (MRCA Sec 16).
+        4. Tenant paying for Structural Repairs (TPA Sec 108).
+        5. Cutting Utilities (MRCA Sec 29).
+        6. Unreasonable Lock-in (Unilateral or > Term).
+        7. **Non-Registration**: Clause forbidding registration (Void lease under Registration Act Sec 17).
+        8. **Tax Evasion**: Clause denying rent receipts (MRCA Sec 31 Violation).
+        9. **Illegal/Hazardous Use**: Clause permitting industrial/dangerous use in residential zone.
 
         Output Format:
         Return a JSON Object with a key "risks" which is a List of Objects.
@@ -68,13 +77,14 @@ class LLMService:
           "risks": [
             {
                 "risk_found": true,
-                "risk_type": "Violation of [Section Name]",
-                "explanation": "Clause X contradicts Section Y which states...",
-                "clause_snippet": "Clause text...",
+                "risk_type": "Rent Increase",
+                "explanation": "Clause X mentions 10% increase which violates MRCA limit of 4%.",
+                "clause_snippet": "Clause 3: ... increase by 10%...",
                 "confidence": "High"
             }
           ]
         }
+        If no risks, return {"risks": []}.
         """
         
         user_message = f"""
